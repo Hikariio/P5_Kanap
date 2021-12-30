@@ -20,7 +20,7 @@ function loadProduct(product) {
 
 function getProductInformation() {
     const color = document.querySelector("#colors").value;
-    const quantity =  document.querySelector("#quantity").value;
+    const quantity = parseInt(document.querySelector("#quantity").value);
     return {
         id,
         color,
@@ -31,28 +31,30 @@ function getProductInformation() {
 function addLocalStorage(productInformation) {
     const productStorage = JSON.parse (localStorage.getItem('products')) || [];
     console.log(productStorage);
+    console.log(productInformation);
     // avant de mettre dans le localStorage il faut check si le produit exist : si oui j'augmente le quantity sinon j'ajoute le produit 
     //Entrer d'un produit dans la tableStorage
     //Si le produit n'est pas dans le tableau ajoute
     //sinon +=1 au produit avec même id
-    if (productStorage == []){
-        productStorage.push(`product`)
+    const index = productStorage.findIndex(p => p.id === productInformation.id && p.color === productInformation.color);
+    if (index ===-1){
+        productStorage.push(productInformation)
     }
     else{
-        getProductInformation +=1
+        productStorage[index].quantity +=productInformation.quantity;
     }
-    
-    productStorage.push(productInformation);
-
     localStorage.setItem("products", JSON.stringify(productStorage));
 }
+
 
 function addToCart() {
     document.getElementById("addToCart").addEventListener(`click`,(event) => {
         event.preventDefault();
         const productInformation = getProductInformation();
         // avant de mettre dans le localeStorage il faut vérifier qu'il est bien quantity et color 
-        addLocalStorage(productInformation);
+        if (productInformation.color.length && productInformation.quantity >0){
+            addLocalStorage(productInformation);
+        }
         alert(productInformation.quantity)
     });
 }
@@ -69,24 +71,3 @@ displayProduct();
 
 
 
-
-
-
-//return {
-    produit [id,color,quantity];
-};
-
-//function addLocalStorage(productInformation) {
-    const productStorage = JSON.parse (localStorage.getItem('products')) || [];
-    console.log(productStorage);
-    // avant de mettre dans le localStorage il faut check si le produit exist : si oui j'augmente le quantity sinon j'ajoute le produit 
-    if (produit == productStorage[produit]){
-    produit[(quantity += produit[quantity])]
-    }else{
-        productStorage[produit]
-    }
-
-    productStorage.push(productInformation);
-
-    localStorage.setItem("products", JSON.stringify(productStorage));
-//}
