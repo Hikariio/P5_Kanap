@@ -22,7 +22,8 @@ function transformProductToHtml(product) {
       <p class="productDescription">${product.description}</p>
     </article>
   </a>`;
-    // Utilisation des querySelector pour pouvoir formater le produit: objet > HTML
+} 
+   // Utilisation des querySelector pour pouvoir formater le produit: objet > HTML
     // <a href="./product.html?id=42">
     //    <article>
     //           <img src=".../product01.jpg" alt="Lorem ipsum dolor sit amet, Kanap name1">
@@ -40,7 +41,7 @@ function transformProductToHtml(product) {
     //     "altTxt": "Photo d'un canapé bleu, deux places"
     //   },
     // Si je veux acceder au nom du produit (product = object) je fais product.name
-} 
+
 
 async function displayProducts() {
     const products = await getProducts(); 

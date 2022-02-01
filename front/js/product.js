@@ -55,7 +55,6 @@ function addToCart() {
         if (productInformation.color.length && productInformation.quantity >0){
             addLocalStorage(productInformation);
         }
-        alert(productInformation.quantity)
     });
 }
 
