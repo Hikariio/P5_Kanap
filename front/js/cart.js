@@ -204,6 +204,11 @@ function validate() {
       document.querySelector(`#emailErrorMsg`).innerHTML = `email Invalide`;
       isFormValid = false;
     } else document.querySelector(`#emailErrorMsg`).innerHTML = ``;
+    const productIds = (JSON.parse (localStorage.getItem('products')) || []).map(p => p.id);
+    if (productIds.length === 0) {
+      alert (`pas de produit dans le panier`);
+      return;
+    }
     if(isFormValid) {
       const body = {
         contact:{
@@ -213,7 +218,7 @@ function validate() {
           city:city,
           email:email,
         },
-        products: JSON.parse (localStorage.getItem('products')).map(p => p.id)
+        products: productIds 
       };
       const order = {
         method: 'POST',

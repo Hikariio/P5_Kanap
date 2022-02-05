@@ -6,7 +6,7 @@ const id = (new URLSearchParams(window.location.search)).get("id");
 console.log(id);
 
 function getProduct(productId) {
-    return fetch(`http://localhost:3000/api/products/${productId}`).then(response => response.json());
+    return fetch(`http://localhost:3000/api/products/${productId}`).then(response => response.json()).catch( e => null);
 }
 
 
@@ -60,8 +60,14 @@ function addToCart() {
 
 async function displayProduct() {
     const product = await getProduct(id);
-    loadProduct(product);
-    addToCart();
+    if (product === null) {
+        document.querySelector('.item').innerHTML = `serveur down`
+    }else if(Object.keys(product).length === 0){
+        document.querySelector('.item').innerHTML = `produit non trouver`
+    } else {
+        loadProduct(product);
+        addToCart();  
+    }   
 }
 
 

@@ -10,7 +10,7 @@
 
 
 function getProducts() {
-    return fetch("http://localhost:3000/api/products").then(response => response.json());
+    return fetch("http://localhost:3000/api/products").then(response => response.json()).catch( e => []);
     // return le fetch
 }
 
@@ -45,6 +45,9 @@ function transformProductToHtml(product) {
 
 async function displayProducts() {
     const products = await getProducts(); 
+    if (products.length === 0) {
+      document.querySelector('#items').innerHTML = `serveur down`
+    }
     for(const product of products) {
         transformProductToHtml(product);
     }
